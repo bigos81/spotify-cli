@@ -17,7 +17,10 @@ and then you are off to go
 
 # Installation
 clone the repo:
-```git clone https://github.com/bigos81/spotify-cli.git```
+<clipboard-copy for="blob-path" class="btn btn-sm BtnGroup-item">
+    git clone https://github.com/bigos81/spotify-cli.git
+</clipboard-copy>
+<div id="blob-path">src/index.js</div>
 
 go into repo folder
 ```cd spotify-cli```
