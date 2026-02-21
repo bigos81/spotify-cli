@@ -15,7 +15,7 @@ The issues fixed in this repo include:
 Generally you just put this script int o your ./local/bin and give it chmod +x,
 and then you are off to go 
 
-#Instalation
+# Installation
 clone the repo:
 ```git clone https://github.com/bigos81/spotify-cli.git```
 
