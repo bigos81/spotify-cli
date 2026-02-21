@@ -17,19 +17,24 @@ and then you are off to go
 
 # Installation
 clone the repo:
-<clipboard-copy for="blob-path" class="btn btn-sm BtnGroup-item">
+```bash
     git clone https://github.com/bigos81/spotify-cli.git
-</clipboard-copy>
-<div id="blob-path">src/index.js</div>
+```
 
 go into repo folder
-```cd spotify-cli```
+```bash
+    cd spotify-cli
+```
 
 (optional) edit the script to add your id and secret for Spotify API
-```https://beta.developer.spotify.com/documentation/general/guides/app-settings/```
+https://beta.developer.spotify.com/documentation/general/guides/app-settings/
 
 run install script
-```./install.sh```
+```bash
+./install.sh
+```
 
 run the script
-```sp help```
+```bash
+sp help
+```
