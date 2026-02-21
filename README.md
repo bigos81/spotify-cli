@@ -18,12 +18,12 @@ and then you are off to go
 # Installation
 clone the repo:
 ```bash
-    git clone https://github.com/bigos81/spotify-cli.git
+git clone https://github.com/bigos81/spotify-cli.git
 ```
 
 go into repo folder
 ```bash
-    cd spotify-cli
+cd spotify-cli
 ```
 
 (optional) edit the script to add your id and secret for Spotify API
