@@ -4,7 +4,7 @@ This is fork of this gist https://gist.github.com/streetturtle/fa6258f3ff7b17747
 which looks like abandoned. There were also multiple attempts of resurrecting it while
 Spotify changed things in their web API (which is needed for metadata and search functions).
 
-This version works as of Frb 2026, and hopefully it will continue to work.
+This version works as of Feb 2026, and hopefully it will continue to work.
 
 The issues fixed in this repo include:
 - fixing line warp while base64 encoding resulting in base64 key being incomplete
