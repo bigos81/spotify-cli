@@ -48,7 +48,7 @@
 
 # CONSTANTS
 
-SP_VERSION="0.1"
+SP_VERSION="0.2"
 SP_DEST="org.mpris.MediaPlayer2.spotify"
 SP_PATH="/org/mpris/MediaPlayer2"
 SP_MEMB="org.mpris.MediaPlayer2.Player"
@@ -128,7 +128,7 @@ function sp-current {
 }
 
 function sp-current-oneline {
-  sp-metadata | grep -E "(title|artist)" | sed 's/^\(.\)*|//' | sed ':a;N;$!ba;s/\n/ | /g'
+  sp-metadata | grep -E "(title|artist)" | sed 's/^\(.\)*|//' | sed ':a;N;$!ba;s/\n/ - /g'
 }
 
 
@@ -192,28 +192,29 @@ function sp-help {
   echo "Usage: sp [command]"
   echo "Control a running Spotify instance from the command line."
   echo ""
-  echo "  sp play       - Play/pause Spotify"
-  echo "  sp pause      - Pause Spotify"
-  echo "  sp next       - Go to next track"
-  echo "  sp prev       - Go to previous track"
+  echo "  sp play             - Play/pause Spotify"
+  echo "  sp pause            - Pause Spotify"
+  echo "  sp next             - Go to next track"
+  echo "  sp prev             - Go to previous track"
   echo ""
-  echo "  sp current    - Format the currently playing track"
-  echo "  sp metadata   - Dump the current track's metadata"
-  echo "  sp eval       - Return the metadata as a shell script"
+  echo "  sp current          - Format the currently playing track"
+  echo "  sp current-oneline  - Format the currently playing track into one line"
+  echo "  sp metadata         - Dump the current track's metadata"
+  echo "  sp eval             - Return the metadata as a shell script"
   echo ""
-  echo "  sp art        - Print the URL to the current track's album artwork"
-  echo "  sp display    - Display the current album artwork with \`display\`"
-  echo "  sp feh        - Display the current album artwork with \`feh\`"
+  echo "  sp art              - Print the URL to the current track's album artwork"
+  echo "  sp display          - Display the current album artwork with \`display\`"
+  echo "  sp feh              - Display the current album artwork with \`feh\`"
   echo ""
-  echo "  sp url        - Print the HTTP URL for the currently playing track"
-  echo "  sp clip       - Copy the HTTP URL to the X clipboard"
-  echo "  sp http       - Open the HTTP URL in a web browser"
+  echo "  sp url              - Print the HTTP URL for the currently playing track"
+  echo "  sp clip             - Copy the HTTP URL to the X clipboard"
+  echo "  sp http             - Open the HTTP URL in a web browser"
   echo ""
-  echo "  sp open <uri> - Open a spotify: uri"
-  echo "  sp search <q> - Start playing the best search result for the given query"
+  echo "  sp open <uri>       - Open a spotify: uri"
+  echo "  sp search <q>       - Start playing the best search result for the given query"
   echo ""
-  echo "  sp version    - Show version information"
-  echo "  sp help       - Show this information"
+  echo "  sp version          - Show version information"
+  echo "  sp help             - Show this information"
   echo ""
   echo "Any other argument will start a search (i.e. 'sp foo' will search for foo)."
 }
