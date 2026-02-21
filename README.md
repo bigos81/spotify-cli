@@ -10,6 +10,8 @@ The issues fixed in this repo include:
 - fixing line warp while base64 encoding resulting in base64 key being incomplete
 - fixing string substring while reading authentication token (looks like it was 86 and the 115 characters long in the past)
 
+Clipboard requires xclip app
+
 #How to install?
 
 Generally you just put this script int o your ./local/bin and give it chmod +x,
@@ -33,8 +35,10 @@ run install script
 ```bash
 ./install.sh
 ```
+or just copy the sp script into your local/global bin folder, it's self-contained
 
 run the script
 ```bash
 sp help
 ```
+
