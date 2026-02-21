@@ -13,11 +13,6 @@ The issues fixed in this repo include:
 
 Clipboard requires xclip app
 
-#How to install?
-
-Generally you just put this script int o your ./local/bin and give it chmod +x,
-and then you are off to go 
-
 # Installation
 clone the repo:
 ```bash
