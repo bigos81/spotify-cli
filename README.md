@@ -32,7 +32,7 @@ run install script
 ```bash
 ./install.sh
 ```
-or just copy the sp script alongside with sp.cfg file into your local/global bin folder, 
+or just copy the ```sp``` script alongside with ```sp.cfg``` file into your local/global bin folder, 
 it's self-contained
 
 run the script
