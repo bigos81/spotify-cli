@@ -47,7 +47,7 @@ file in the script folder
 # Tips and Tricks
 ## Searches / play URI makes Spotify window steeling focus!
 To prevent Spotify windows steeling focus from console or whatever process is executing
-the script, you can use KDE Window Rules and set Focus Steeling Prevention proporty of
-Spotify woindow to high:
+the script, you can use KDE Window Rules and set Focus Steeling Prevention property of
+Spotify window to high:
 <img width="1275" height="75" alt="image" src="https://github.com/user-attachments/assets/590064ee-a626-498b-b30e-351905fcb0f7" />
 
