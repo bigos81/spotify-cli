@@ -254,7 +254,7 @@ function sp-version {
   # Prints version information.
 
   echo "sp $SP_VERSION"
-  echo "Copyright (C) 2013 Wander Nauta : original script"
+  echo "Copyright (C) 2013 Wander Nauta       : original script"
   echo "Copyright (C) 2026 Michal Rosikiewicz : fixes and extensions"
   echo "License MIT"
 }
