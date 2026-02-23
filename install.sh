@@ -7,5 +7,6 @@ echo "Done"
 echo "Marking file as executable..."
 chmod +x ~/.local/bin/sp
 echo "Done"
-
-echo "All done, you should be able to do sp help"
+echo ""
+echo "All done, you should be able to do sp version or sp help, let me try it for you..."
+sp version
