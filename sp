@@ -219,6 +219,7 @@ function sp-help {
   echo "  sp s <q>       - Start playing the best search result track/artist for the given query"
   echo "  sp asearch <q> - Start playing the best search result album/artist for the given query"
   echo "  sp a <q>       - Start playing the best search result album/artist for the given query"
+  echo "  sp p <q>       - Start playing the best search result playlist for the given query"
   echo "  sp radio <q>   - Starts radio from given search result"
   echo ""
   echo "  sp version     - Show version information"
@@ -236,6 +237,27 @@ function sp-a {
   sp-asearch $@
 }
 
+function sp-p {
+  require curl
+  #send request for token with ID and SecretID encoded to base64->grep take only  token from reply->trim reply down to token-> modified request to include token in header
+  Q="$@"
+
+  ST=$(curl -H "Authorization: Basic $SP_B64ID" -d grant_type=client_credentials https://accounts.spotify.com/api/token --silent \
+    | grep -E -o "access_token\":\"[a-zA-Z0-9_-]+\"" -m 1 )
+
+  echo 'Playlist search query: '$Q
+
+  ST2=${ST:15:-1}
+  SPTFY_URI=$( \
+    curl -H "Authorization: Bearer $ST2" -s -G --data-urlencode "q=$Q" --data type=playlist https://api.spotify.com/v1/search/ \
+    | grep -E -o "spotify:playlist:[a-zA-Z0-9]+" -m 1 \
+  )
+
+  sp-open $SPTFY_URI
+  sleep 1
+  sp-current-oneline
+}
+
 function sp-asearch {
   require curl
   #send request for token with ID and SecretID encoded to base64->grep take only  token from reply->trim reply down to token-> modified request to include token in header
@@ -243,7 +265,7 @@ function sp-asearch {
   ST=$(curl -H "Authorization: Basic $SP_B64ID" -d grant_type=client_credentials https://accounts.spotify.com/api/token --silent \
     | grep -E -o "access_token\":\"[a-zA-Z0-9_-]+\"" -m 1 )
 
-  echo 'Search query: '$Q
+  echo 'Album search query: '$Q
 
   ST2=${ST:15:-1}
   SPTFY_URI=$( \
@@ -269,7 +291,7 @@ function sp-search {
   ST=$(curl -H "Authorization: Basic $SP_B64ID" -d grant_type=client_credentials https://accounts.spotify.com/api/token --silent \
     | grep -E -o "access_token\":\"[a-zA-Z0-9_-]+\"" -m 1 )
 
-  echo 'Search query: '$Q
+  echo 'Artist/track search query: '$Q
 
   ST2=${ST:15:-1}
   SPTFY_URI=$( \
