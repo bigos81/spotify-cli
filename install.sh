@@ -2,7 +2,7 @@
 
 echo "Copying script into local bin..."
 cp sp ~/.local/bin/sp
-cp sp.cfg ~/.local/bin/sp.cfg
+cp -n sp.cfg ~/.local/bin/sp.cfg
 echo "Done"
 echo "Marking file as executable..."
 chmod +x ~/.local/bin/sp
