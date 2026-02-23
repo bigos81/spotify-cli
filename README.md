@@ -26,12 +26,14 @@ cd spotify-cli
 
 (optional) edit the script to add your id and secret for Spotify API
 https://beta.developer.spotify.com/documentation/general/guides/app-settings/
+put key and secter into ```sp.cfg``` file
 
 run install script
 ```bash
 ./install.sh
 ```
-or just copy the sp script into your local/global bin folder, it's self-contained
+or just copy the sp script alongside with sp.cfg file into your local/global bin folder, 
+it's self-contained
 
 run the script
 ```bash
