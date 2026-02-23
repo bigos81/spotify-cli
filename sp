@@ -237,14 +237,14 @@ function sp-a {
 
 function sp-asearch {
   require curl
-    #send request for token with ID and SecretID encoded to base64->grep take only  token from reply->trim reply down to token-> modified request to include token in header
+  #send request for token with ID and SecretID encoded to base64->grep take only  token from reply->trim reply down to token-> modified request to include token in header
   Q="$@"
-    ST=$(curl -H "Authorization: Basic $SP_B64ID" -d grant_type=client_credentials https://accounts.spotify.com/api/token --silent \
+  ST=$(curl -H "Authorization: Basic $SP_B64ID" -d grant_type=client_credentials https://accounts.spotify.com/api/token --silent \
     | grep -E -o "access_token\":\"[a-zA-Z0-9_-]+\"" -m 1 )
 
-   echo 'Search query: '$Q
+  echo 'Search query: '$Q
 
-    ST2=${ST:15:-1}
+  ST2=${ST:15:-1}
   SPTFY_URI=$( \
     curl -H "Authorization: Bearer $ST2" -s -G --data-urlencode "q=$Q" --data type=album https://api.spotify.com/v1/search/ \
     | grep -E -o "spotify:album:[a-zA-Z0-9]+" -m 1 \
@@ -263,14 +263,14 @@ function sp-search {
   # Searches for tracks, plays the first result.
 
   require curl
-    #send request for token with ID and SecretID encoded to base64->grep take only  token from reply->trim reply down to token-> modified request to include token in header
+  #send request for token with ID and SecretID encoded to base64->grep take only  token from reply->trim reply down to token-> modified request to include token in header
   Q="$@"
-    ST=$(curl -H "Authorization: Basic $SP_B64ID" -d grant_type=client_credentials https://accounts.spotify.com/api/token --silent \
+  ST=$(curl -H "Authorization: Basic $SP_B64ID" -d grant_type=client_credentials https://accounts.spotify.com/api/token --silent \
     | grep -E -o "access_token\":\"[a-zA-Z0-9_-]+\"" -m 1 )
 
-   echo 'Search query: '$Q
+  echo 'Search query: '$Q
 
-    ST2=${ST:15:-1}
+  ST2=${ST:15:-1}
   SPTFY_URI=$( \
     curl -H "Authorization: Bearer $ST2" -s -G --data-urlencode "q=$Q" --data type=track,artist https://api.spotify.com/v1/search/ \
     | grep -E -o "spotify:track:[a-zA-Z0-9]+" -m 1 \
