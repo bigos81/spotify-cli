@@ -26,6 +26,8 @@
 #
 #
 # Copyright (C) 2013 Wander Nauta
+# Additional fixes and extensions (C) Michal Rosikiewicz 2026
+# WebPage: https://github.com/bigos81
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software, to deal in the Software without restriction, including
@@ -55,7 +57,7 @@ SP_MEMB="org.mpris.MediaPlayer2.Player"
 
 # To get SP_ID and SP_SECRET register at
 # https://beta.developer.spotify.com/documentation/general/guides/app-settings/
-# put them into sp.cfg file
+# Put them into sp.cfg file
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 SP_ID=$(head -n 1 "$SCRIPT_DIR"/sp.cfg | sed 's/=/\n/g' | sed -n '2p')
 SP_SECRET=$(sed -n '2p' "$SCRIPT_DIR"/sp.cfg | sed 's/=/\n/g' | sed -n '2p')
@@ -253,6 +255,7 @@ function sp-version {
 
   echo "sp $SP_VERSION"
   echo "Copyright (C) 2013 Wander Nauta"
+  echo "Extensions and fixes (C) 2026 Michal Rosikiewicz"
   echo "License MIT"
 }
 
