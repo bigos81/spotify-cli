@@ -42,4 +42,11 @@ sp help
 
 # Updating
 Same as installation, the ```install.sh``` script will not override the ```sp.config``` 
-file in the script folder 
+file in the script folder
+
+# Tips and Tricks
+## searches / play URI makes Spotify window steeling focus!
+To prevent Spotify windows steeling focus from console or whatever process is executing
+the script, you can use KDE Window Rules and set Focus Steeling Prevention proporty of
+Spotify woindow to high
+
