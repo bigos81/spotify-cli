@@ -95,6 +95,20 @@ function sp-dbus {
   dbus-send --print-reply --dest=$SP_DEST $SP_PATH $SP_MEMB.$1 ${*:2} > /dev/null
 }
 
+function sp-dbus-prop {
+  if [[ $1 == "Get" ]]; then
+    response=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify \
+    /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.$1 \
+    string:org.mpris.MediaPlayer2.Player $2)
+    result=$(echo $response | grep -oP 'boolean\s+\K(true|false)')
+    echo Shuffle status: $result
+  else
+    dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify \
+    /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.$1 \
+    string:org.mpris.MediaPlayer2.Player $2 $3 > /dev/null
+  fi
+}
+
 function sp-open {
   # Opens the given spotify: URI in Spotify.
   sp-dbus OpenUri string:$1
@@ -214,6 +228,9 @@ function sp-help {
   echo "  sp clip        - Copy the HTTP URL to the X clipboard"
   echo "  sp http        - Open the HTTP URL in a web browser"
   echo ""
+  echo "  sp sh          - Gets shuffle status (true/false) of the player"
+  echo "  sp sh <v>      - Sets shuffle status (true/false) of the player and returns current shuffle status"
+  echo ""
   echo "  sp open <uri>  - Open a spotify: uri"
   echo "  sp search <q>  - Start playing the best search result track/artist for the given query"
   echo "  sp s <q>       - Start playing the best search result track/artist for the given query"
@@ -231,6 +248,16 @@ function sp-help {
 function sp-seek {
   v=$(($1*1000000))
   sp-dbus Seek int64:$v
+}
+
+function sp-sh {
+  if [[ $1 ]]; then
+    sp-dbus-prop Set string:Shuffle variant:boolean:$1
+    sleep 1
+    sp-dbus-prop Get string:Shuffle boolean
+  else
+    sp-dbus-prop Get string:Shuffle boolean
+  fi
 }
 
 function sp-a {
