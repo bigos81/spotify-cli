@@ -48,15 +48,17 @@
 
 # CONSTANTS
 
-SP_VERSION="0.3"
+SP_VERSION="0.4"
 SP_DEST="org.mpris.MediaPlayer2.spotify"
 SP_PATH="/org/mpris/MediaPlayer2"
 SP_MEMB="org.mpris.MediaPlayer2.Player"
 
 # To get SP_ID and SP_SECRET register at
 # https://beta.developer.spotify.com/documentation/general/guides/app-settings/
-SP_ID="<your_id>"
-SP_SECRET="<your_secret>"
+# put them into sp.cfg file
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SP_ID=$(head -n 1 "$SCRIPT_DIR"/sp.cfg | sed 's/=/\n/g' | sed -n '2p')
+SP_SECRET=$(sed -n '2p' "$SCRIPT_DIR"/sp.cfg | sed 's/=/\n/g' | sed -n '2p')
 
 
 # SHELL OPTIONS
