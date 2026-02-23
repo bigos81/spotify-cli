@@ -50,7 +50,7 @@
 
 # CONSTANTS
 
-SP_VERSION="0.8"
+SP_VERSION="0.9"
 SP_DEST="org.mpris.MediaPlayer2.spotify"
 SP_PATH="/org/mpris/MediaPlayer2"
 SP_MEMB="org.mpris.MediaPlayer2.Player"
@@ -100,8 +100,8 @@ function sp-dbus-prop {
     response=$(dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify \
     /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.$1 \
     string:org.mpris.MediaPlayer2.Player $2)
-    result=$(echo $response | grep -oP 'boolean\s+\K(true|false)')
-    echo Shuffle status: $result
+    result=$(echo $response | grep -oP 'variant\s+\w+\s+\K\S+')
+    echo Result: $result
   else
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify \
     /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.$1 \
@@ -230,6 +230,8 @@ function sp-help {
   echo ""
   echo "  sp sh          - Gets shuffle status (true/false) of the player"
   echo "  sp sh <v>      - Sets shuffle status (true/false) of the player and returns current shuffle status"
+  echo "  sp vol         - Gets volume (0 to 1 double) of the player"
+  echo "  sp vol <v>     - Sets volume (0 to 1 double) of the player and returns current volume value"
   echo ""
   echo "  sp open <uri>  - Open a spotify: uri"
   echo "  sp search <q>  - Start playing the best search result track/artist for the given query"
@@ -250,13 +252,22 @@ function sp-seek {
   sp-dbus Seek int64:$v
 }
 
+function sp-vol {
+  if [[ $1 ]]; then
+    sp-dbus-prop Set string:Volume variant:double:$1
+    sp-dbus-prop Get string:Volume
+  else
+    sp-dbus-prop Get string:Volume
+  fi
+}
+
 function sp-sh {
   if [[ $1 ]]; then
     sp-dbus-prop Set string:Shuffle variant:boolean:$1
     sleep 1
-    sp-dbus-prop Get string:Shuffle boolean
+    sp-dbus-prop Get string:Shuffle
   else
-    sp-dbus-prop Get string:Shuffle boolean
+    sp-dbus-prop Get string:Shuffle
   fi
 }
 
