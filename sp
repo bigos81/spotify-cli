@@ -50,6 +50,7 @@
 
 # CONSTANTS
 
+QUIET=0
 SP_VERSION="0.5"
 SP_DEST="org.mpris.MediaPlayer2.spotify"
 SP_PATH="/org/mpris/MediaPlayer2"
@@ -219,6 +220,7 @@ function sp-help {
   echo "  sp s <q>       - Start playing the best search result track/artist for the given query"
   echo "  sp asearch <q> - Start playing the best search result album/artist for the given query"
   echo "  sp a <q>       - Start playing the best search result album/artist for the given query"
+  echo "  sp radio <q>   - Starts radio from given search result"
   echo ""
   echo "  sp version     - Show version information"
   echo "  sp help        - Show this information"
@@ -278,6 +280,12 @@ function sp-search {
 
   sp-open $SPTFY_URI
   sleep 1
+  sp-current-oneline
+}
+
+function sp-radio {
+  sp-search $@ > /dev/null
+  sp-dbus Next > /dev/null
   sp-current-oneline
 }
 
