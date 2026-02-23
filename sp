@@ -50,7 +50,7 @@
 
 # CONSTANTS
 
-SP_VERSION="0.4"
+SP_VERSION="0.5"
 SP_DEST="org.mpris.MediaPlayer2.spotify"
 SP_PATH="/org/mpris/MediaPlayer2"
 SP_MEMB="org.mpris.MediaPlayer2.Player"
@@ -196,29 +196,32 @@ function sp-help {
   echo "Usage: sp [command]"
   echo "Control a running Spotify instance from the command line."
   echo ""
-  echo "  sp play       - Play/pause Spotify"
-  echo "  sp pause      - Pause Spotify"
-  echo "  sp next       - Go to next track"
-  echo "  sp prev       - Go to previous track"
-  echo "  sp seek <sec> - Seek X seconds forward or backward (negative values accepted)"
+  echo "  sp play        - Play/pause Spotify"
+  echo "  sp pause       - Pause Spotify"
+  echo "  sp next        - Go to next track"
+  echo "  sp prev        - Go to previous track"
+  echo "  sp seek <sec>  - Seek X seconds forward or backward (negative values accepted)"
   echo ""
-  echo "  sp current    - Format the currently playing track"
-  echo "  sp metadata   - Dump the current track's metadata"
-  echo "  sp eval       - Return the metadata as a shell script"
+  echo "  sp current     - Format the currently playing track"
+  echo "  sp metadata    - Dump the current track's metadata"
+  echo "  sp eval        - Return the metadata as a shell script"
   echo ""
-  echo "  sp art        - Print the URL to the current track's album artwork"
-  echo "  sp display    - Display the current album artwork with \`display\`"
-  echo "  sp feh        - Display the current album artwork with \`feh\`"
+  echo "  sp art         - Print the URL to the current track's album artwork"
+  echo "  sp display     - Display the current album artwork with \`display\`"
+  echo "  sp feh         - Display the current album artwork with \`feh\`"
   echo ""
-  echo "  sp url        - Print the HTTP URL for the currently playing track"
-  echo "  sp clip       - Copy the HTTP URL to the X clipboard"
-  echo "  sp http       - Open the HTTP URL in a web browser"
+  echo "  sp url         - Print the HTTP URL for the currently playing track"
+  echo "  sp clip        - Copy the HTTP URL to the X clipboard"
+  echo "  sp http        - Open the HTTP URL in a web browser"
   echo ""
-  echo "  sp open <uri> - Open a spotify: uri"
-  echo "  sp search <q> - Start playing the best search result for the given query"
+  echo "  sp open <uri>  - Open a spotify: uri"
+  echo "  sp search <q>  - Start playing the best search result track/artist for the given query"
+  echo "  sp s <q>       - Start playing the best search result track/artist for the given query"
+  echo "  sp asearch <q> - Start playing the best search result album/artist for the given query"
+  echo "  sp a <q>       - Start playing the best search result album/artist for the given query"
   echo ""
-  echo "  sp version    - Show version information"
-  echo "  sp help       - Show this information"
+  echo "  sp version     - Show version information"
+  echo "  sp help        - Show this information"
   echo ""
   echo "Any other argument will start a search (i.e. 'sp foo' will search for foo)."
 }
@@ -226,6 +229,34 @@ function sp-help {
 function sp-seek {
   v=$(($1*1000000))
   sp-dbus Seek int64:$v
+}
+
+function sp-a {
+  sp-asearch $@
+}
+
+function sp-asearch {
+  require curl
+    #send request for token with ID and SecretID encoded to base64->grep take only  token from reply->trim reply down to token-> modified request to include token in header
+  Q="$@"
+    ST=$(curl -H "Authorization: Basic $SP_B64ID" -d grant_type=client_credentials https://accounts.spotify.com/api/token --silent \
+    | grep -E -o "access_token\":\"[a-zA-Z0-9_-]+\"" -m 1 )
+
+   echo 'Search query: '$Q
+
+    ST2=${ST:15:-1}
+  SPTFY_URI=$( \
+    curl -H "Authorization: Bearer $ST2" -s -G --data-urlencode "q=$Q" --data type=album https://api.spotify.com/v1/search/ \
+    | grep -E -o "spotify:album:[a-zA-Z0-9]+" -m 1 \
+  )
+
+  sp-open $SPTFY_URI
+  sleep 1
+  sp-current-oneline
+}
+
+function sp-s {
+  sp-search $@
 }
 
 function sp-search {
@@ -241,7 +272,7 @@ function sp-search {
 
     ST2=${ST:15:-1}
   SPTFY_URI=$( \
-    curl -H "Authorization: Bearer $ST2" -s -G --data-urlencode "q=$Q" --data type=artist,track https://api.spotify.com/v1/search/ \
+    curl -H "Authorization: Bearer $ST2" -s -G --data-urlencode "q=$Q" --data type=track,artist https://api.spotify.com/v1/search/ \
     | grep -E -o "spotify:track:[a-zA-Z0-9]+" -m 1 \
   )
 
