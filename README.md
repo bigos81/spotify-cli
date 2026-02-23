@@ -51,3 +51,6 @@ the script, you can use KDE Window Rules and set Focus Steeling Prevention prope
 Spotify window to high:
 <img width="1275" height="75" alt="image" src="https://github.com/user-attachments/assets/590064ee-a626-498b-b30e-351905fcb0f7" />
 
+# Want to be nice?
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/black_img.png)](https://www.buymeacoffee.com/bigos81)
+
