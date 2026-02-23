@@ -50,8 +50,7 @@
 
 # CONSTANTS
 
-QUIET=0
-SP_VERSION="0.5"
+SP_VERSION="0.6"
 SP_DEST="org.mpris.MediaPlayer2.spotify"
 SP_PATH="/org/mpris/MediaPlayer2"
 SP_MEMB="org.mpris.MediaPlayer2.Player"
